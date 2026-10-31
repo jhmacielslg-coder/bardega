@@ -68,7 +68,7 @@ CREATE POLICY "Admin pode excluir produtos"
 -- 3. TABELA DE CONFIGURAÇÕES DA LOJA (LOGO, NOME, ENDEREÇO)
 CREATE TABLE IF NOT EXISTS public.store_settings (
     id TEXT PRIMARY KEY DEFAULT 'main',
-    store_name TEXT DEFAULT 'Espetinho Amor de Mãe',
+    store_name TEXT DEFAULT 'BARDEGA',
     logo_url TEXT,
     address TEXT,
     whatsapp TEXT,
@@ -112,8 +112,7 @@ CREATE POLICY "Admin pode atualizar/deletar fotos do cardápio"
 
 -- 5. DADOS INICIAIS DE CATEGORIAS
 INSERT INTO public.categories (id, name, icon) VALUES
-    ('espetinhos', 'Espetinhos', '🍢'),
-    ('jantinhas', 'Jantinhas & Porções', '🍛'),
-    ('bebidas', 'Bebidas', '🥤'),
-    ('sobremesas', 'Sobremesas', '🍰')
+    ('porções', 'Porções', '🍟'),
+    ('caldos', 'Caldos', '🍲'),
+    ('bebidas', 'Bebidas', '🥤')
 ON CONFLICT (id) DO NOTHING;

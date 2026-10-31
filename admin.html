@@ -91,10 +91,10 @@
             
             <!-- Logo / Ícone Superior -->
             <div class="text-center mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-2xl font-black shadow-lg shadow-orange-600/30 mx-auto mb-3.5 transition-transform hover:scale-105">
-                    <span>A</span>
+                <div class="w-14 h-14 rounded-2xl bg-[#983610] text-white flex items-center justify-center text-2xl font-black shadow-lg shadow-[#983610]/30 mx-auto mb-3.5 transition-transform hover:scale-105 overflow-hidden">
+                    <img src="./images/logo.png" alt="BARDEGA" class="w-full h-full object-cover">
                 </div>
-                <h2 id="auth-title" class="text-2xl font-bold text-gray-900 tracking-tight">Espetinho Amor de Mãe</h2>
+                <h2 id="auth-title" class="text-2xl font-bold text-gray-900 tracking-tight">BARDEGA</h2>
                 <p id="auth-subtitle" class="text-gray-500 text-xs sm:text-sm mt-1">Acesse o painel do seu estabelecimento</p>
             </div>
 
@@ -152,7 +152,7 @@
             <form id="signup-form" class="space-y-4 hidden">
                 <div>
                     <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Nome do Delivery ou Dono *</label>
-                    <input type="text" id="signup-name" placeholder="Ex: Carlos (Espetinho Amor de Mãe)" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                    <input type="text" id="signup-name" placeholder="Ex: Carlos (BARDEGA)" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
                 </div>
 
                 <div>
@@ -199,14 +199,11 @@
                 </div>
             </form>
 
-            <!-- Rodapé sutil com link de volta e config -->
+            <!-- Rodapé sutil com link de volta -->
             <div class="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
                 <a href="index.html" class="hover:text-gray-700 transition">
                     ← Ver Cardápio
                 </a>
-                <button type="button" id="btn-open-config-modal" class="hover:text-orange-600 transition cursor-pointer">
-                    ⚙️ Chaves Supabase
-                </button>
             </div>
 
         </div>
@@ -287,7 +284,7 @@
             <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">📁 Cadastrar Nova Categoria</h3>
                 <form id="category-form" class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="category-name" placeholder="Ex: Espetinhos, Bebidas, Acompanhamentos" required class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                    <input type="text" id="category-name" placeholder="Ex: Porções, Caldos, Bebidas" required class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
                     <button type="submit" id="btn-save-category" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-6 rounded-xl transition cursor-pointer shadow-sm flex items-center justify-center gap-2">
                         <span>+ Criar Categoria</span>
                     </button>
@@ -305,12 +302,12 @@
 
             <!-- SEÇÃO C: CADASTRAR LANCHES / PRODUTOS -->
             <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">🍢 Adicionar Item ao Cardápio</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">🍽️ Adicionar Item ao Cardápio</h3>
                 <form id="product-form" class="space-y-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-1">Nome do Item *</label>
-                            <input type="text" id="prod-name" placeholder="Ex: Espetinho de Alcatra Completo" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                            <input type="text" id="prod-name" placeholder="Ex: Batata Frita com Queijo" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-1">Categoria *</label>
@@ -334,7 +331,7 @@
 
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição / Ingredientes *</label>
-                        <textarea id="prod-description" rows="3" placeholder="Ex: Espetinho de alcatra selecionada, acompanha farofa artesanal, vinagrete fresco e mandioca cozida." required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none"></textarea>
+                        <textarea id="prod-description" rows="3" placeholder="Ex: Porção caprichada, bem temperada e quentinha." required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none"></textarea>
                     </div>
 
                     <div class="flex justify-between items-center pt-2">
@@ -791,10 +788,9 @@
             }
             // Padrões do cardápio
             memoryCategories = [
-                { id: 'espetinhos', name: 'Espetinhos', icon: '🍢' },
-                { id: 'jantinhas', name: 'Jantinhas & Porções', icon: '🍛' },
-                { id: 'bebidas', name: 'Bebidas', icon: '🥤' },
-                { id: 'sobremesas', name: 'Sobremesas', icon: '🍰' }
+                { id: 'porções', name: 'Porções', icon: '🍟' },
+                { id: 'caldos', name: 'Caldos', icon: '🍲' },
+                { id: 'bebidas', name: 'Bebidas', icon: '🥤' }
             ];
             localStorage.setItem('delivery_categories', JSON.stringify(memoryCategories));
         }
