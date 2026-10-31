@@ -1,0 +1,196 @@
+{
+  "config": {
+    "storeName": "BARDEGA",
+    "storeTagline": "Bar e Conveniência",
+    "address": "R. José Lobo, Qd.44 - Lt.02 - Jd. Califórnia - Formosa",
+    "whatsapp": "5561998572344",
+    "whatsappDisplay": "(61) 99857-2344",
+    "deliveryFee": 6.0,
+    "deliveryTime": "40–50 min",
+    "pixKey": "58570787000107",
+    "primaryColor": "#983610",
+    "instagram": "https://www.instagram.com/bardega_fsa",
+    "facebook": "#"
+  },
+  "categories": [
+    {
+      "id": "porções",
+      "name": "Porções",
+      "icon": "🍟"
+    },
+    {
+      "id": "caldos",
+      "name": "Caldos",
+      "icon": "🍲"
+    },
+    {
+      "id": "bebidas",
+      "name": "Bebidas",
+      "icon": "🥤"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Batata Frita",
+      "category": "porções",
+      "description": "Porção caprichada de batata frita palito dourada e crocante.",
+      "price": 25.0,
+      "image": "/images/porcao001.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 2,
+      "name": "Batata com Cheddar e Bacon",
+      "category": "porções",
+      "description": "Porção de batata frita crocante coberta com queijo cheddar cremoso e cubos de bacon.",
+      "price": 30.0,
+      "image": "/images/porcao002.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 3,
+      "name": "Calabresa Acebolada",
+      "category": "porções",
+      "description": "Porção de linguiça calabresa fatiada na chapa com cebola dourada.",
+      "price": 30.0,
+      "image": "/images/porcao003.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 4,
+      "name": "Isca de Filé de Frango Crocante",
+      "category": "porções",
+      "description": "Porção de iscas de filé de frango empanadas e super crocantes.",
+      "price": 35.0,
+      "image": "/images/porcao004.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 5,
+      "name": "Frango à Passarinho",
+      "category": "porções",
+      "description": "Porção tradicional de frango à passarinho bem temperado e dourado.",
+      "price": 35.0,
+      "image": "/images/porcao005.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 6,
+      "name": "Tilápia em Posta",
+      "category": "porções",
+      "description": "Porção de tilápia em postas fritas na hora, sequinhas e crocantes.",
+      "price": 45.0,
+      "image": "/images/porcao006.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 7,
+      "name": "Isca de Filé de Peixe Empanada (Tilápia)",
+      "category": "porções",
+      "description": "Porção de iscas de filé de tilápia empanadas e crocantes.",
+      "price": 50.0,
+      "image": "/images/porcao007.jpg",
+      "badge": "Especial",
+      "addons": []
+    },
+    {
+      "id": 8,
+      "name": "Coxão Mole Acebolada com Mandioca",
+      "category": "porções",
+      "description": "Porção de carne coxão mole na chapa com cebola, acompanhada de mandioca cozida.",
+      "price": 0.0,
+      "image": "/images/porcao008.jpg",
+      "badge": "Consultar Valor",
+      "addons": []
+    },
+    {
+      "id": 9,
+      "name": "Coxão Mole Acebolada com Mandioca, Ovo de Codorna e Muçarela",
+      "category": "porções",
+      "description": "Porção completa de coxão mole acebolado na chapa com mandioca, ovos de codorna e queijo muçarela.",
+      "price": 0.0,
+      "image": "/images/porcao009.jpg",
+      "badge": "Consultar Valor",
+      "addons": []
+    },
+    {
+      "id": 10,
+      "name": "Caldo de Mocotó",
+      "category": "caldos",
+      "description": "Caldo de mocotó tradicional bem temperado e servido quentinho.",
+      "price": 15.0,
+      "image": "/images/caldo001.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 11,
+      "name": "Caldo de Frango",
+      "category": "caldos",
+      "description": "Caldo cremoso de frango desfiado com tempero caseiro.",
+      "price": 15.0,
+      "image": "/images/caldo002.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 12,
+      "name": "Caldo de Carne com Mandioca",
+      "category": "caldos",
+      "description": "Caldo encorpado de mandioca com carne bovina bem temperada.",
+      "price": 15.0,
+      "image": "/images/caldo003.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 13,
+      "name": "Caldo de Abóbora com Bacon e Calabresa",
+      "category": "caldos",
+      "description": "Caldo cremoso de abóbora cabotiá com cubos de bacon e calabresa.",
+      "price": 15.0,
+      "image": "/images/caldo004.jpg",
+      "badge": "Especial",
+      "addons": []
+    },
+    {
+      "id": 14,
+      "name": "Refrigerante 1,5L",
+      "category": "bebidas",
+      "description": "Coca-Cola, Guaraná Antarctica, Fanta Laranja, Fanta Uva e Sprite",
+      "price": 0.0,
+      "image": "/images/bebida001.jpg",
+      "badge": "Mais Pedido",
+      "addons": [
+        { "name": "Coca-Cola", "price": 12.0 },
+        { "name": "Guaraná Antarctica", "price": 10.0 },
+        { "name": "Fanta Laranja", "price": 10.0 },
+        { "name": "Fanta Uva", "price": 10.0 },
+        { "name": "Sprite", "price": 10.0 }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Refrigerante Lata",
+      "category": "bebidas",
+      "description": "Coca-Cola, Guaraná Antarctica, Fanta Laranja, Fanta Uva e Sprite",
+      "price": 0.0,
+      "image": "/images/bebida002.jpg",
+      "badge": "",
+      "addons": [
+        { "name": "Coca-Cola", "price": 5.0 },
+        { "name": "Guaraná Antarctica", "price": 5.0 },
+        { "name": "Fanta Laranja", "price": 5.0 },
+        { "name": "Fanta Uva", "price": 5.0 },
+        { "name": "Sprite", "price": 5.0 }
+      ]
+    }
+  ]
+}

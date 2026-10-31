@@ -1,0 +1,348 @@
+
+index.json
+100%
+{
+  "config": {
+    "storeName": "BARDEGA",
+    "storeTagline": "Bar e Conveniência",
+    "address": "R. José Lobo, Qd.44 - Lt.02 - Jd. Califórnia - Formosa",
+    "whatsapp": "5561998572344",
+    "whatsappDisplay": "(61) 99857-2344",
+    "deliveryFee": 6.0,
+    "deliveryTime": "40–50 min",
+    "pixKey": "58570787000107",
+    "primaryColor": "#983610",
+    "instagram": "https://www.instagram.com/bardega_fsa",
+    "facebook": "#"
+  },
+  "categories": [
+    {
+      "id": "porções",
+      "name": "Porções",
+      "icon": "🍟"
+    },
+    {
+      "id": "caldos",
+      "name": "Caldos",
+      "icon": "🍲"
+    },
+    {
+      "id": "bebidas",
+      "name": "Bebidas",
+      "icon": "🥤"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Batata Frita",
+      "category": "porções",
+      "description": "Porção caprichada de batata frita palito dourada e crocante.",
+      "price": 25.0,
+      "image": "/images/porcao001.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 2,
+      "name": "Batata com Cheddar e Bacon",
+      "category": "porções",
+      "description": "Porção de batata frita crocante coberta com queijo cheddar cremoso e cubos de bacon.",
+      "price": 30.0,
+      "image": "/images/porcao002.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 3,
+      "name": "Calabresa Acebolada",
+      "category": "porções",
+      "description": "Porção de linguiça calabresa fatiada na chapa com cebola dourada.",
+      "price": 30.0,
+      "image": "/images/porcao003.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 4,
+      "name": "Isca de Filé de Frango Crocante",
+      "category": "porções",
+      "description": "Porção de iscas de filé de frango empanadas e super crocantes.",
+      "price": 35.0,
+      "image": "/images/porcao004.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 5,
+      "name": "Frango à Passarinho",
+      "category": "porções",
+      "description": "Porção tradicional de frango à passarinho bem temperado e dourado.",
+      "price": 35.0,
+      "image": "/images/porcao005.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 6,
+      "name": "Tilápia em Posta",
+      "category": "porções",
+      "description": "Porção de tilápia em postas fritas na hora, sequinhas e crocantes.",
+      "price": 45.0,
+      "image": "/images/porcao006.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 7,
+      "name": "Isca de Filé de Peixe Empanada (Tilápia)",
+      "category": "porções",
+      "description": "Porção de iscas de filé de tilápia empanadas e crocantes.",
+      "price": 50.0,
+      "image": "/images/porcao007.jpg",
+      "badge": "Especial",
+      "addons": []
+    },
+    {
+      "id": 8,
+      "name": "Coxão Mole Acebolada com Mandioca",
+      "category": "porções",
+      "description": "Porção de carne coxão mole na chapa com cebola, acompanhada de mandioca cozida.",
+      "price": 0.0,
+      "image": "/images/porcao008.jpg",
+      "badge": "Consultar Valor",
+      "addons": []
+    },
+    {
+      "id": 9,
+      "name": "Coxão Mole Acebolada com Mandioca, Ovo de Codorna e Muçarela",
+      "category": "porções",
+      "description": "Porção completa de coxão mole acebolado na chapa com mandioca, ovos de codorna e queijo muçarela.",
+      "price": 0.0,
+      "image": "/images/porcao009.jpg",
+      "badge": "Consultar Valor",
+      "addons": []
+    },
+    {
+      "id": 10,
+      "name": "Caldo de Mocotó",
+      "category": "caldos",
+      "description": "Caldo de mocotó tradicional bem temperado e servido quentinho.",
+      "price": 15.0,
+      "image": "/images/caldo001.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 11,
+      "name": "Caldo de Frango",
+      "category": "caldos",
+      "description": "Caldo cremoso de frango desfiado com tempero caseiro.",
+      "price": 15.0,
+      "image": "/images/caldo002.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 12,
+      "name": "Caldo de Carne com Mandioca",
+      "category": "caldos",
+      "description": "Caldo encorpado de mandioca com carne bovina bem temperada.",
+      "price": 15.0,
+      "image": "/images/caldo003.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 13,
+      "name": "Caldo de Abóbora com Bacon e Calabresa",
+      "category": "caldos",
+      "description": "Caldo cremoso de abóbora cabotiá com cubos de bacon e calabresa.",
+      "price": 15.0,
+      "image": "/images/caldo004.jpg",
+      "badge": "Especial",
+      "addons": []
+    },
+    {
+      "id": 14,
+      "name": "Guaramix",
+      "category": "bebidas",
+      "description": "Bebida energética à base de açaí e guaraná Guaramix gelada.",
+      "price": 5.5,
+      "image": "/images/bebida001.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 15,
+      "name": "H2OH!",
+      "category": "bebidas",
+      "description": "Bebida levemente gaseificada H2OH! gelada.",
+      "price": 6.0,
+      "image": "/images/bebida002.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 16,
+      "name": "Energético Extra Power",
+      "category": "bebidas",
+      "description": "Bebida energética Extra Power lata gelada.",
+      "price": 6.0,
+      "image": "/images/bebida003.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 17,
+      "name": "51 Ice",
+      "category": "bebidas",
+      "description": "Garrafa de bebida mista gaseificada 51 Ice gelada.",
+      "price": 7.0,
+      "image": "/images/bebida004.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 18,
+      "name": "Gatorade",
+      "category": "bebidas",
+      "description": "Bebida isotônica Gatorade garrafa gelada.",
+      "price": 8.0,
+      "image": "/images/bebida005.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 19,
+      "name": "Energético Monster",
+      "category": "bebidas",
+      "description": "Bebida energética Monster Energy lata 473ml gelada.",
+      "price": 10.0,
+      "image": "/images/bebida006.jpg",
+      "badge": "Mais Pedido",
+      "addons": []
+    },
+    {
+      "id": 20,
+      "name": "Energético Red Bull",
+      "category": "bebidas",
+      "description": "Bebida energética Red Bull lata 250ml gelada.",
+      "price": 12.0,
+      "image": "/images/bebida007.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 21,
+      "name": "Suco Nutri 1 Litro",
+      "category": "bebidas",
+      "description": "Suco de fruta Nutri embalagem de 1 litro gelado.",
+      "price": 7.0,
+      "image": "/images/bebida008.jpg",
+      "badge": "1 Litro",
+      "addons": []
+    },
+    {
+      "id": 22,
+      "name": "Suco 200ml",
+      "category": "bebidas",
+      "description": "Suco individual 200ml gelado.",
+      "price": 3.0,
+      "image": "/images/bebida009.jpg",
+      "badge": "200ml",
+      "addons": []
+    },
+    {
+      "id": 23,
+      "name": "Sukita Laranja 2L",
+      "category": "bebidas",
+      "description": "Refrigerante Sukita sabor laranja garrafa 2 litros.",
+      "price": 8.0,
+      "image": "/images/bebida010.jpg",
+      "badge": "2 Litros",
+      "addons": []
+    },
+    {
+      "id": 24,
+      "name": "Sukita Limão 2L",
+      "category": "bebidas",
+      "description": "Refrigerante Sukita sabor limão garrafa 2 litros.",
+      "price": 8.0,
+      "image": "/images/bebida011.jpg",
+      "badge": "2 Litros",
+      "addons": []
+    },
+    {
+      "id": 25,
+      "name": "Guaraná Antarctica 2L",
+      "category": "bebidas",
+      "description": "Refrigerante Guaraná Antarctica garrafa 2 litros.",
+      "price": 10.0,
+      "image": "/images/bebida012.jpg",
+      "badge": "2 Litros",
+      "addons": []
+    },
+    {
+      "id": 26,
+      "name": "Coca-Cola 1,5L",
+      "category": "bebidas",
+      "description": "Refrigerante Coca-Cola garrafa 1,5 litro gelada.",
+      "price": 10.0,
+      "image": "/images/bebida013.jpg",
+      "badge": "1,5 Litro",
+      "addons": []
+    },
+    {
+      "id": 27,
+      "name": "Coca-Cola 2L",
+      "category": "bebidas",
+      "description": "Refrigerante Coca-Cola garrafa 2 litros gelada.",
+      "price": 12.0,
+      "image": "/images/bebida014.jpg",
+      "badge": "2 Litros",
+      "addons": []
+    },
+    {
+      "id": 28,
+      "name": "Água de Coco 1 Litro",
+      "category": "bebidas",
+      "description": "Água de coco integral embalagem de 1 litro gelada.",
+      "price": 14.0,
+      "image": "/images/bebida015.jpg",
+      "badge": "1 Litro",
+      "addons": []
+    },
+    {
+      "id": 29,
+      "name": "Água de Coco 200ml",
+      "category": "bebidas",
+      "description": "Água de coco caixinha 200ml gelada.",
+      "price": 4.0,
+      "image": "/images/bebida016.jpg",
+      "badge": "200ml",
+      "addons": []
+    },
+    {
+      "id": 30,
+      "name": "Água Mineral Sem Gás",
+      "category": "bebidas",
+      "description": "Garrafa de água mineral sem gás 500ml gelada.",
+      "price": 2.0,
+      "image": "/images/bebida017.jpg",
+      "badge": "",
+      "addons": []
+    },
+    {
+      "id": 31,
+      "name": "Água Mineral Com Gás",
+      "category": "bebidas",
+      "description": "Garrafa de água mineral com gás 500ml gelada.",
+      "price": 3.0,
+      "image": "/images/bebida018.jpg",
+      "badge": "",
+      "addons": []
+    }
+  ]
+}
+Exibindo index.json…

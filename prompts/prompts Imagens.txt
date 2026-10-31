@@ -1,0 +1,102 @@
+Prompts de Imagens Nano Banana (AR 4:5 - 418x500px) — Cardápio BARDEGA
+
+Lista de prompts configurados na proporção 4:5 (418 x 500px) com os nomes de arquivo exatos do index.json atualizado (apenas Porções, Caldos e Bebidas selecionadas).
+
+1. Porções (/images/porcao001.jpg a porcao009.jpg)
+
+porcao001.jpg (Batata Frita):
+Fotografia gastronômica comercial profissional vertical 4:5 (418x500px) de uma porção generosa de batata frita palito dourada e crocante servida em travessa de bar sobre mesa de madeira rústica escura, iluminação quente, foco nítido, sem textos ou marcas d'água.
+
+porcao002.jpg (Batata com Cheddar e Bacon):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de batata frita coberta com fios generosos de queijo cheddar cremoso e cubos de bacon crocante, exatamente no estilo petisco de bar, centralizada em fundo escuro rústico, sem textos.
+
+porcao003.jpg (Calabresa Acebolada):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de linguiça calabresa fatiada frita na chapa com anéis de cebola dourada e limão fatiado na borda, servida em chapa/prato escuro de bar, iluminação quente, sem textos.
+
+porcao004.jpg (Isca de Filé de Frango Crocante):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de iscas de filé de frango empanadas na farinha crocante (estilo crispy), bem douradas, com rodelas de limão ao lado, fundo escuro rústico, sem textos.
+
+porcao005.jpg (Frango à Passarinho):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de frango à passarinho dourado com alho frito e salsinha picada por cima, servido em travessa de bar sobre madeira escura, iluminação quente, sem textos.
+
+porcao006.jpg (Tilápia em Posta):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de postas de peixe tilápia fritas e crocantes acompanhadas de fatias de limão, centralizada sobre superfície rústica escura, iluminação quente, sem textos.
+
+porcao007.jpg (Isca de Filé de Peixe Empanada Tilápia):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de iscas de filé de tilápia empanadas douradas e crocantes com limão e molho tártaro ao lado, fundo escuro rústico, sem textos.
+
+porcao008.jpg (Coxão Mole Acebolada com Mandioca):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção de tiras de carne coxão mole acebolada na chapa fumegante acompanhada de mandioca cozida macia, fundo de madeira escura, iluminação quente, sem textos.
+
+porcao009.jpg (Coxão Mole Acebolada com Mandioca, Ovo de Codorna e Muçarela):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma porção completa na chapa contendo carne coxão mole acebolada coberta com queijo muçarela derretido, mandioca cozida e ovos de codorna ao redor, fundo escuro rústico, sem textos.
+
+2. Caldos (/images/caldo001.jpg a caldo004.jpg)
+
+caldo001.jpg (Caldo de Mocotó):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma cumbuca de barro marrom contendo caldo de mocotó tradicional quentinho e encorpado com cheiro-verde picado por cima, centralizada sobre madeira rústica escura, sem textos.
+
+caldo002.jpg (Caldo de Frango):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma cumbuca de barro marrom contendo caldo cremoso de frango amarelinho com cheiro-verde fresco no topo, iluminação aconchegante, fundo escuro rústico, sem textos.
+
+caldo003.jpg (Caldo de Carne com Mandioca):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma cumbuca de barro marrom contendo caldo cremoso de mandioca com pedacinhos de carne bovina desfiada e cebolinha verde, centralizada sobre madeira escura, sem textos.
+
+caldo004.jpg (Caldo de Abóbora com Bacon e Calabresa):
+Fotografia gastronômica profissional vertical 4:5 (418x500px) de uma cumbuca de barro marrom contendo caldo cremoso de abóbora alaranjado finalizado com cubinhos de bacon crocante e calabresa frita no topo, fundo escuro rústico, sem textos.
+
+3. Bebidas (/images/bebida001.jpg a bebida018.jpg)
+
+bebida001.jpg (Guaramix):
+Fotografia de produto comercial vertical 4:5 (418x500px) de um copo/garrafa de energético Guaramix (açaí e guaraná) trincando de gelado com gotículas de condensação em fundo escuro de estúdio, centralizado, sem textos extras.
+
+bebida002.jpg (H2OH!):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa de bebida H2OH! Limão 500ml trincando de gelada com gotículas de água em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida003.jpg (Energético Extra Power):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma lata de energético Extra Power trincando de gelada com gotículas de condensação em fundo escuro de estúdio, centralizada, sem textos extras.
+
+bebida004.jpg (51 Ice):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa long neck de bebida 51 Ice trincando de gelada com gotículas de condensação em fundo escuro de estúdio, centralizada, sem textos extras.
+
+bebida005.jpg (Gatorade):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa de isotônico Gatorade 500ml trincando de gelada com gotículas de água em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida006.jpg (Energético Monster):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma lata preta de energético Monster Energy 473ml trincando de gelada com gotículas de condensação em fundo escuro de estúdio, centralizada, sem textos extras.
+
+bebida007.jpg (Energético Red Bull):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma lata de energético Red Bull 250ml trincando de gelada com gotículas de condensação em fundo escuro de estúdio, centralizada, sem textos extras.
+
+bebida008.jpg (Suco Nutri 1 Litro):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma embalagem de 1 litro de suco de fruta Nutri gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida009.jpg (Suco 200ml):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma caixinha individual de suco de fruta 200ml gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida010.jpg (Sukita Laranja 2L):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa PET de 2 litros de refrigerante Sukita Laranja gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida011.jpg (Sukita Limão 2L):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa PET de 2 litros de refrigerante Sukita Limão gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida012.jpg (Guaraná Antarctica 2L):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa PET de 2 litros de refrigerante Guaraná Antarctica gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida013.jpg (Coca-Cola 1,5L):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa PET de 1,5 litro de refrigerante Coca-Cola gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida014.jpg (Coca-Cola 2L):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa PET de 2 litros de refrigerante Coca-Cola gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida015.jpg (Água de Coco 1 Litro):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma embalagem Tetra Pak de 1 litro de água de coco gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida016.jpg (Água de Coco 200ml):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma caixinha Tetra Pak de 200ml de água de coco gelada com canudo e gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida017.jpg (Água Mineral Sem Gás):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa de água mineral sem gás 500ml transparente e gelada com gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.
+
+bebida018.jpg (Água Mineral Com Gás):
+Fotografia de produto comercial vertical 4:5 (418x500px) de uma garrafa de água mineral com gás 500ml gelada com bolhas internas e gotículas de condensação em fundo escuro neutro, centralizada, sem textos extras.

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Delivery</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client v2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .hidden { display: none !important; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+    <script>
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabLogin = document.getElementById('tab-btn-login');
+            const tabSignup = document.getElementById('tab-btn-signup');
+            const subtitle = document.getElementById('auth-subtitle');
+
+            if (tab === 'signup') {
+                if (loginForm) {
+                    loginForm.classList.add('hidden');
+                    loginForm.style.setProperty('display', 'none', 'important');
+                }
+                if (signupForm) {
+                    signupForm.classList.remove('hidden');
+                    signupForm.style.setProperty('display', 'block', 'important');
+                }
+                if (tabLogin) {
+                    tabLogin.className = "flex-1 py-2 rounded-xl font-medium text-sm transition-all duration-200 text-center text-gray-500 hover:text-gray-800 cursor-pointer bg-transparent shadow-none";
+                }
+                if (tabSignup) {
+                    tabSignup.className = "flex-1 py-2 rounded-xl font-bold text-sm transition-all duration-200 text-center shadow-sm bg-white text-orange-600 cursor-pointer";
+                }
+                if (subtitle) {
+                    subtitle.textContent = "Crie a conta do seu delivery para começar";
+                }
+            } else {
+                if (signupForm) {
+                    signupForm.classList.add('hidden');
+                    signupForm.style.setProperty('display', 'none', 'important');
+                }
+                if (loginForm) {
+                    loginForm.classList.remove('hidden');
+                    loginForm.style.setProperty('display', 'block', 'important');
+                }
+                if (tabSignup) {
+                    tabSignup.className = "flex-1 py-2 rounded-xl font-medium text-sm transition-all duration-200 text-center text-gray-500 hover:text-gray-800 cursor-pointer bg-transparent shadow-none";
+                }
+                if (tabLogin) {
+                    tabLogin.className = "flex-1 py-2 rounded-xl font-bold text-sm transition-all duration-200 text-center shadow-sm bg-white text-orange-600 cursor-pointer";
+                }
+                if (subtitle) {
+                    subtitle.textContent = "Acesse o painel do seu estabelecimento";
+                }
+            }
+        }
+        window.switchAuthTab = switchAuthTab;
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const openIcon = btn.querySelector('.eye-open');
+            const closedIcon = btn.querySelector('.eye-closed');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (openIcon) openIcon.classList.add('hidden');
+                if (closedIcon) closedIcon.classList.remove('hidden');
+            } else {
+                input.type = 'password';
+                if (openIcon) openIcon.classList.remove('hidden');
+                if (closedIcon) closedIcon.classList.add('hidden');
+            }
+        }
+        window.togglePasswordVisibility = togglePasswordVisibility;
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen">
+
+    <!-- 1. TELA DE LOGIN -->
+    <!-- 1. TELA DE LOGIN & CADASTRO -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center px-4 py-8 bg-gray-50/70">
+        <div class="max-w-md w-full bg-white p-7 sm:p-9 rounded-[28px] shadow-xl border border-gray-100">
+            
+            <!-- Logo / Ícone Superior -->
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-2xl font-black shadow-lg shadow-orange-600/30 mx-auto mb-3.5 transition-transform hover:scale-105">
+                    <span>A</span>
+                </div>
+                <h2 id="auth-title" class="text-2xl font-bold text-gray-900 tracking-tight">Espetinho Amor de Mãe</h2>
+                <p id="auth-subtitle" class="text-gray-500 text-xs sm:text-sm mt-1">Acesse o painel do seu estabelecimento</p>
+            </div>
+
+            <!-- Segmented Control: Abas [ Entrar ] | [ Criar Conta ] -->
+            <div class="bg-gray-100/90 p-1 rounded-2xl flex gap-1 mb-6 border border-gray-200/50">
+                <button type="button" id="tab-btn-login" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-xl font-bold text-sm transition-all duration-200 text-center shadow-sm bg-white text-orange-600 cursor-pointer">
+                    Entrar
+                </button>
+                <button type="button" id="tab-btn-signup" onclick="switchAuthTab('signup')" class="flex-1 py-2 rounded-xl font-medium text-sm transition-all duration-200 text-center text-gray-500 hover:text-gray-800 cursor-pointer">
+                    Criar Conta
+                </button>
+            </div>
+
+            <!-- FORMULÁRIO 1: ENTRAR -->
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">E-mail do Proprietário *</label>
+                    <input type="email" id="login-email" placeholder="dono@delivery.com.br" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="text-xs sm:text-sm font-semibold text-gray-700">Senha *</label>
+                        <button type="button" id="btn-forgot-password" class="text-xs font-semibold text-orange-600 hover:text-orange-700 hover:underline cursor-pointer">
+                            Esqueceu a senha?
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="login-password" placeholder="Digite sua senha" required class="w-full pl-4 pr-11 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                        <button type="button" class="btn-toggle-password absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer" onclick="togglePasswordVisibility('login-password', this)" title="Ver senha">
+                            <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="btn-login-submit" class="w-full bg-orange-600 hover:bg-orange-700 active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl transition shadow-lg shadow-orange-600/20 flex items-center justify-center gap-2 cursor-pointer text-sm">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        <span>Entrar no Painel</span>
+                    </button>
+                </div>
+
+                <div class="pt-4 text-center">
+                    <p class="text-xs sm:text-sm text-gray-500">
+                        Ainda não tem conta? 
+                        <button type="button" id="link-switch-to-signup" onclick="switchAuthTab('signup')" class="text-orange-600 font-bold hover:underline cursor-pointer">
+                            Cadastre-se grátis
+                        </button>
+                    </p>
+                </div>
+            </form>
+
+            <!-- FORMULÁRIO 2: CRIAR CONTA (CADASTRE SEU DELIVERY) -->
+            <form id="signup-form" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Nome do Delivery ou Dono *</label>
+                    <input type="text" id="signup-name" placeholder="Ex: Carlos (Espetinho Amor de Mãe)" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">E-mail do Proprietário *</label>
+                    <input type="email" id="signup-email" placeholder="dono@delivery.com.br" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Senha *</label>
+                    <div class="relative">
+                        <input type="password" id="signup-password" placeholder="Crie uma senha" required class="w-full pl-4 pr-11 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                        <button type="button" class="btn-toggle-password absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer" onclick="togglePasswordVisibility('signup-password', this)" title="Ver senha">
+                            <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Confirmar Senha *</label>
+                    <div class="relative">
+                        <input type="password" id="signup-password-confirm" placeholder="Confirme a senha" required class="w-full pl-4 pr-11 py-2.5 rounded-xl border border-gray-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-gray-800 transition text-sm">
+                        <button type="button" class="btn-toggle-password absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer" onclick="togglePasswordVisibility('signup-password-confirm', this)" title="Ver senha">
+                            <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="btn-signup-submit" class="w-full bg-orange-600 hover:bg-orange-700 active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl transition shadow-lg shadow-orange-600/20 flex items-center justify-center gap-2 cursor-pointer text-sm">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                        <span>Cadastre seu Delivery</span>
+                    </button>
+                </div>
+
+                <div class="pt-4 text-center">
+                    <p class="text-xs sm:text-sm text-gray-500">
+                        Já possui uma conta? 
+                        <button type="button" id="link-switch-to-login" onclick="switchAuthTab('login')" class="text-orange-600 font-bold hover:underline cursor-pointer">
+                            Faça login
+                        </button>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Rodapé sutil com link de volta e config -->
+            <div class="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+                <a href="index.html" class="hover:text-gray-700 transition">
+                    ← Ver Cardápio
+                </a>
+                <button type="button" id="btn-open-config-modal" class="hover:text-orange-600 transition cursor-pointer">
+                    ⚙️ Chaves Supabase
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. PAINEL ADMIN (Inicia Oculto) -->
+    <div id="admin-panel" class="min-h-screen flex flex-col md:flex-row hidden">
+        <!-- Barra Lateral -->
+        <aside class="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="text-2xl">⚙️</span>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900 leading-tight">Delivery Admin</h1>
+                        <span id="user-display-email" class="text-xs text-gray-400 block truncate max-w-[170px]">Conectado</span>
+                    </div>
+                </div>
+
+                <nav class="space-y-2">
+                    <a href="#cardapio" class="flex items-center gap-3 px-4 py-2.5 bg-orange-50 text-orange-700 font-semibold rounded-xl transition">
+                        📍 Cardápio & Loja
+                    </a>
+                    <a href="#produtos-cadastrados" class="flex items-center gap-3 px-4 py-2.5 text-gray-600 hover:bg-gray-100 font-medium rounded-xl transition">
+                        📦 Itens Cadastrados
+                    </a>
+                    <a href="index.html" target="_blank" class="flex items-center gap-3 px-4 py-2.5 text-gray-600 hover:bg-gray-100 font-medium rounded-xl transition">
+                        🌐 Ver Cardápio Online
+                    </a>
+                    <button type="button" id="btn-open-config-sidebar" class="w-full flex items-center gap-3 px-4 py-2.5 text-gray-600 hover:bg-gray-100 font-medium rounded-xl transition text-left">
+                        🔑 Chaves Supabase
+                    </button>
+                </nav>
+            </div>
+
+            <div class="pt-6 border-t border-gray-100">
+                <button id="btn-logout" class="flex items-center justify-center gap-2 w-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-600 font-medium py-2.5 px-4 rounded-xl transition cursor-pointer">
+                    🚪 Sair do Sistema
+                </button>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 p-6 md:p-10 max-w-5xl mx-auto w-full space-y-10" id="cardapio">
+            
+            <!-- AVISO DE STATUS SUPABASE -->
+            <div id="panel-supabase-banner" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">⚡</span>
+                    <div>
+                        <strong class="font-bold text-sm block">Modo Demonstração / Local</strong>
+                        <p class="text-xs text-amber-700">As alterações estão sendo salvas no armazenamento local do navegador. Configure suas credenciais Supabase para sincronizar em nuvem.</p>
+                    </div>
+                </div>
+                <button id="btn-config-from-banner" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-semibold px-3 py-1.5 rounded-lg transition whitespace-nowrap">
+                    Configurar Supabase
+                </button>
+            </div>
+
+            <!-- SEÇÃO A: LOGO DO ESTABELECIMENTO -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">🏪 Logo do Estabelecimento</h3>
+                    <span id="logo-status-tag" class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">Padrão</span>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="w-24 h-24 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden shadow-inner shrink-0">
+                        <img id="logo-preview" src="https://placehold.co/150x150?text=Logo" alt="Preview Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 w-full space-y-2">
+                        <label class="block text-sm text-gray-500">Selecione uma imagem quadrada (PNG ou JPG)</label>
+                        <input type="file" id="logo-file" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
+                        <p class="text-xs text-gray-400">A pré-visualização atualiza instantaneamente.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO B: GERENCIAR CATEGORIAS -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">📁 Cadastrar Nova Categoria</h3>
+                <form id="category-form" class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="category-name" placeholder="Ex: Espetinhos, Bebidas, Acompanhamentos" required class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                    <button type="submit" id="btn-save-category" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-6 rounded-xl transition cursor-pointer shadow-sm flex items-center justify-center gap-2">
+                        <span>+ Criar Categoria</span>
+                    </button>
+                </form>
+
+                <!-- Lista de categorias cadastradas -->
+                <div class="mt-6 pt-5 border-t border-gray-100">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-400 block mb-3">Categorias Ativas:</span>
+                    <div id="categories-chips-container" class="flex flex-wrap gap-2">
+                        <!-- Injetado dinamicamente via JS -->
+                        <span class="text-xs text-gray-400">Carregando categorias...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO C: CADASTRAR LANCHES / PRODUTOS -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">🍢 Adicionar Item ao Cardápio</h3>
+                <form id="product-form" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nome do Item *</label>
+                            <input type="text" id="prod-name" placeholder="Ex: Espetinho de Alcatra Completo" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Categoria *</label>
+                            <select id="prod-category" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-orange-500 outline-none">
+                                <option value="">Selecione uma categoria...</option>
+                                <!-- Injetado dinamicamente via JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-end">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Preço (R$) *</label>
+                            <input type="number" id="prod-price" step="0.01" min="0" placeholder="0.00" required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Foto do Item *</label>
+                            <input type="file" id="prod-file" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição / Ingredientes *</label>
+                        <textarea id="prod-description" rows="3" placeholder="Ex: Espetinho de alcatra selecionada, acompanha farofa artesanal, vinagrete fresco e mandioca cozida." required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none"></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2">
+                        <span id="product-form-msg" class="text-sm font-medium"></span>
+                        <button type="submit" id="btn-save-product" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-xl transition shadow-md shadow-orange-200 cursor-pointer flex items-center gap-2">
+                            <span>🚀 Salvar Produto no Cardápio</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- SEÇÃO D: ITENS CADASTRADOS NO CARDÁPIO -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100" id="produtos-cadastrados">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">📦 Itens no Cardápio</h3>
+                        <p class="text-sm text-gray-500">Visualize e gerencie os itens ativos no delivery</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="product-count-badge" class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-semibold">0 itens</span>
+                    </div>
+                </div>
+
+                <div id="products-table-container" class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-600">
+                        <thead class="bg-gray-50 text-gray-900 font-semibold border-b border-gray-100">
+                            <tr>
+                                <th class="p-3">Foto</th>
+                                <th class="p-3">Nome</th>
+                                <th class="p-3">Categoria</th>
+                                <th class="p-3">Preço</th>
+                                <th class="p-3 text-right">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body" class="divide-y divide-gray-100">
+                            <!-- Injetado dinamicamente -->
+                            <tr>
+                                <td colspan="5" class="p-6 text-center text-gray-400">Carregando itens...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL DE CONFIGURAÇÃO DO SUPABASE -->
+    <div id="config-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="max-w-lg w-full bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 md:p-8 space-y-6">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    🔑 Configuração do Supabase
+                </h3>
+                <button type="button" id="btn-close-config-modal" class="text-gray-400 hover:text-gray-600 text-xl font-bold cursor-pointer">✕</button>
+            </div>
+            
+            <p class="text-sm text-gray-600">
+                Insira as credenciais do seu projeto Supabase abaixo. Os dados são salvos com segurança no armazenamento local do navegador para suas requisições.
+            </p>
+
+            <form id="config-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Supabase Project URL</label>
+                    <input type="url" id="cfg-supabase-url" placeholder="https://seu-projeto.supabase.co" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Supabase Anon Key</label>
+                    <input type="password" id="cfg-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none text-sm">
+                </div>
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" id="btn-reset-config" class="px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-xl transition cursor-pointer">
+                        Limpar Chaves
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition shadow cursor-pointer text-sm">
+                        Salvar e Conectar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="admin-toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-xl text-sm font-medium z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+        <span id="admin-toast-icon">✓</span>
+        <span id="admin-toast-text">Operação realizada com sucesso!</span>
+    </div>
+
+    <!-- LÓGICA DE INTEGRAÇÃO DO SUPABASE & PAINEL ADMIN -->
+    <script>
+        // 1. CONFIGURAÇÃO DO SUPABASE
+        // Caso possua chaves fixas, você pode colocá-las aqui ou defini-las via Modal de Configuração
+        const DEFAULT_SUPABASE_URL = "SUA_SUPABASE_URL_AQUI";
+        const DEFAULT_SUPABASE_ANON_KEY = "SUA_SUPABASE_ANON_KEY_AQUI";
+
+        // Obtém chaves persistidas no navegador ou usa os padrões definidos
+        let activeSupabaseUrl = localStorage.getItem('delivery_sb_url') || (DEFAULT_SUPABASE_URL !== "SUA_SUPABASE_URL_AQUI" ? DEFAULT_SUPABASE_URL : "");
+        let activeSupabaseKey = localStorage.getItem('delivery_sb_key') || (DEFAULT_SUPABASE_ANON_KEY !== "SUA_SUPABASE_ANON_KEY_AQUI" ? DEFAULT_SUPABASE_ANON_KEY : "");
+
+        let supabase = null;
+        let isConfigured = false;
+
+        // Inicializa o cliente Supabase se as credenciais forem válidas
+        function initSupabaseClient() {
+            if (activeSupabaseUrl && activeSupabaseKey && activeSupabaseUrl.startsWith('http') && activeSupabaseUrl !== "SUA_SUPABASE_URL_AQUI") {
+                try {
+                    const { createClient } = window.supabase || {};
+                    if (typeof createClient === 'function') {
+                        supabase = createClient(activeSupabaseUrl, activeSupabaseKey);
+                        isConfigured = true;
+                        updateSupabaseStatusUI(true);
+                        return true;
+                    }
+                } catch (e) {
+                    console.warn("Falha ao inicializar Supabase Client:", e);
+                }
+            }
+            isConfigured = false;
+            updateSupabaseStatusUI(false);
+            return false;
+        }
+
+        // Elementos de Tela
+        const loginScreen = document.getElementById('login-screen');
+        const adminPanel = document.getElementById('admin-panel');
+        const selectCategory = document.getElementById('prod-category');
+        const categoriesChipsContainer = document.getElementById('categories-chips-container');
+        const productsTableBody = document.getElementById('products-table-body');
+        const productCountBadge = document.getElementById('product-count-badge');
+        const logoPreview = document.getElementById('logo-preview');
+        const logoFileInput = document.getElementById('logo-file');
+        const userDisplayEmail = document.getElementById('user-display-email');
+        const configModal = document.getElementById('config-modal');
+
+        // Estado em memória / cache local
+        let memoryCategories = [];
+        let memoryProducts = [];
+
+        // Toast de feedback
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('admin-toast');
+            const icon = document.getElementById('admin-toast-icon');
+            const text = document.getElementById('admin-toast-text');
+            if (!toast) return;
+
+            text.textContent = message;
+            icon.textContent = isError ? '⚠️' : '✓';
+            toast.className = `fixed bottom-6 right-6 ${isError ? 'bg-red-600' : 'bg-gray-900'} text-white px-5 py-3 rounded-xl shadow-xl text-sm font-medium z-50 transform translate-y-0 opacity-100 transition-all duration-300 flex items-center gap-2`;
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Atualização visual do status de conexão
+        function updateSupabaseStatusUI(connected) {
+            const statusBox = document.getElementById('login-supabase-status');
+            const statusHint = document.getElementById('supabase-config-hint');
+            const panelBanner = document.getElementById('panel-supabase-banner');
+
+            if (connected) {
+                if (statusBox) {
+                    statusBox.className = "mb-5 p-3 rounded-xl text-xs bg-green-50 text-green-800 border border-green-200 flex items-start gap-2";
+                    statusHint.textContent = "Conectado ao Supabase com sucesso!";
+                }
+                if (panelBanner) panelBanner.classList.add('hidden');
+            } else {
+                if (statusBox) {
+                    statusBox.className = "mb-5 p-3 rounded-xl text-xs bg-amber-50 text-amber-800 border border-amber-200 flex items-start gap-2";
+                    statusHint.textContent = "Supabase não conectado. Você pode acessar no modo demonstração com qualquer e-mail/senha ou configurar suas chaves.";
+                }
+                if (panelBanner) panelBanner.classList.remove('hidden');
+            }
+        }
+
+        // --- CONTROLE DE SESSÃO / AUTH ---
+        function showAdminPanel(email = 'Administrador') {
+            loginScreen.classList.add('hidden');
+            adminPanel.classList.remove('hidden');
+            if (userDisplayEmail) userDisplayEmail.textContent = email;
+            loadLogo();
+            loadCategories();
+            loadProducts();
+        }
+
+        function showLoginScreen() {
+            adminPanel.classList.add('hidden');
+            loginScreen.classList.remove('hidden');
+        }
+
+        // --- CONTROLE DE ABAS (ENTRAR / CRIAR CONTA) ---
+        const tabBtnLogin = document.getElementById('tab-btn-login');
+        const tabBtnSignup = document.getElementById('tab-btn-signup');
+        const formLogin = document.getElementById('login-form');
+        const formSignup = document.getElementById('signup-form');
+        const authTitle = document.getElementById('auth-title');
+        const authSubtitle = document.getElementById('auth-subtitle');
+        const linkSwitchToSignup = document.getElementById('link-switch-to-signup');
+        const linkSwitchToLogin = document.getElementById('link-switch-to-login');
+
+        function activateTab(tab) {
+            switchAuthTab(tab);
+        }
+
+        if (tabBtnLogin) tabBtnLogin.addEventListener('click', () => switchAuthTab('login'));
+        if (tabBtnSignup) tabBtnSignup.addEventListener('click', () => switchAuthTab('signup'));
+        if (linkSwitchToSignup) linkSwitchToSignup.addEventListener('click', () => switchAuthTab('signup'));
+        if (linkSwitchToLogin) linkSwitchToLogin.addEventListener('click', () => switchAuthTab('login'));
+
+        // --- BOTÕES DE MOSTRAR / OCULTAR SENHA (OLHO) ---
+        document.querySelectorAll('.btn-toggle-password').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                const openIcon = btn.querySelector('.eye-open');
+                const closedIcon = btn.querySelector('.eye-closed');
+                if (!input) return;
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    if (openIcon) openIcon.classList.add('hidden');
+                    if (closedIcon) closedIcon.classList.remove('hidden');
+                } else {
+                    input.type = 'password';
+                    if (openIcon) openIcon.classList.remove('hidden');
+                    if (closedIcon) closedIcon.classList.add('hidden');
+                }
+            });
+        });
+
+        // --- RECUPERAÇÃO DE SENHA ---
+        const btnForgotPassword = document.getElementById('btn-forgot-password');
+        if (btnForgotPassword) {
+            btnForgotPassword.addEventListener('click', async () => {
+                const emailInput = document.getElementById('login-email');
+                const email = (emailInput && emailInput.value.trim()) || prompt("Digite o seu e-mail cadastrado para redefinir a senha:");
+                if (!email) return;
+
+                if (isConfigured && supabase) {
+                    try {
+                        const { error } = await supabase.auth.resetPasswordForEmail(email);
+                        if (error) {
+                            alert("Erro ao solicitar redefinição: " + error.message);
+                        } else {
+                            alert("Link de redefinição de senha enviado para: " + email);
+                        }
+                    } catch (e) {
+                        alert("Erro: " + e.message);
+                    }
+                } else {
+                    alert("No modo demonstração / local, você pode acessar diretamente com qualquer senha!");
+                }
+            });
+        }
+
+        // --- SUBMISSÃO: ENTRAR NO PAINEL ---
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const submitBtn = document.getElementById('btn-login-submit');
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Entrando...";
+            }
+
+            if (isConfigured && supabase) {
+                try {
+                    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+                    if (error) {
+                        alert("Erro ao entrar: " + error.message);
+                    } else {
+                        showToast("Login efetuado com sucesso!");
+                        showAdminPanel(data?.user?.email || email);
+                    }
+                } catch (err) {
+                    alert("Erro ao comunicar com Supabase: " + err.message);
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = `
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                            <span>Entrar no Painel</span>
+                        `;
+                    }
+                }
+            } else {
+                // Modo Demonstração / Local
+                setTimeout(() => {
+                    localStorage.setItem('delivery_demo_session', JSON.stringify({ email }));
+                    showToast("Entrando no Painel!");
+                    showAdminPanel(email);
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = `
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                            <span>Entrar no Painel</span>
+                        `;
+                    }
+                }, 400);
+            }
+        });
+
+        // --- SUBMISSÃO: CADASTRE SEU DELIVERY ---
+        if (formSignup) {
+            formSignup.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                const passwordConfirm = document.getElementById('signup-password-confirm').value;
+                const submitBtn = document.getElementById('btn-signup-submit');
+
+                if (password !== passwordConfirm) {
+                    alert("As senhas digitadas não coincidem. Por favor, verifique.");
+                    return;
+                }
+
+                if (password.length < 6) {
+                    alert("A senha deve possuir pelo menos 6 caracteres.");
+                    return;
+                }
+
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerText = "Cadastrando Delivery...";
+                }
+
+                if (isConfigured && supabase) {
+                    try {
+                        const { data, error } = await supabase.auth.signUp({
+                            email,
+                            password,
+                            options: {
+                                data: { name, store_name: name }
+                            }
+                        });
+
+                        if (error) {
+                            alert("Erro ao cadastrar: " + error.message);
+                        } else {
+                            if (data?.session) {
+                                showToast("Conta cadastrada com sucesso!");
+                                showAdminPanel(data.user?.email || email);
+                            } else {
+                                alert("Cadastro realizado! Verifique seu e-mail para confirmar antes de fazer login.");
+                                activateTab('login');
+                                document.getElementById('login-email').value = email;
+                            }
+                        }
+                    } catch (err) {
+                        alert("Erro ao comunicar com Supabase: " + err.message);
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = `
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                <span>Cadastre seu Delivery</span>
+                            `;
+                        }
+                    }
+                } else {
+                    // Modo Local
+                    setTimeout(() => {
+                        localStorage.setItem('delivery_demo_session', JSON.stringify({ email, name }));
+                        showToast(`Bem-vindo, ${name || 'Proprietário'}!`);
+                        showAdminPanel(name || email);
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = `
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                <span>Cadastre seu Delivery</span>
+                            `;
+                        }
+                    }, 400);
+                }
+            });
+        }
+
+        document.getElementById('btn-logout').addEventListener('click', async () => {
+            if (isConfigured && supabase) {
+                try {
+                    await supabase.auth.signOut();
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+            localStorage.removeItem('delivery_demo_session');
+            showToast("Sessão finalizada.");
+            showLoginScreen();
+        });
+
+        async function checkUserSession() {
+            if (isConfigured && supabase) {
+                try {
+                    const { data: { session }, error } = await supabase.auth.getSession();
+                    if (session && !error) {
+                        showAdminPanel(session.user?.email || 'Administrador');
+                        return;
+                    }
+                } catch (err) {
+                    console.warn("Verificação de sessão no Supabase falhou:", err);
+                }
+            }
+
+            // Verifica sessão demo local
+            const demoSession = localStorage.getItem('delivery_demo_session');
+            if (demoSession) {
+                try {
+                    const parsed = JSON.parse(demoSession);
+                    showAdminPanel(parsed.email || 'Admin Demo');
+                    return;
+                } catch (e) {}
+            }
+
+            showLoginScreen();
+        }
+
+        // --- GERENCIAMENTO DE CATEGORIAS ---
+        async function loadCategories() {
+            if (isConfigured && supabase) {
+                try {
+                    const { data, error } = await supabase
+                        .from('categories')
+                        .select('*')
+                        .order('name', { ascending: true });
+
+                    if (!error && data && data.length > 0) {
+                        memoryCategories = data;
+                    } else {
+                        fallbackLocalCategories();
+                    }
+                } catch (err) {
+                    console.warn("Erro ao buscar categorias do Supabase:", err);
+                    fallbackLocalCategories();
+                }
+            } else {
+                fallbackLocalCategories();
+            }
+
+            renderCategoriesUI();
+        }
+
+        function fallbackLocalCategories() {
+            const stored = localStorage.getItem('delivery_categories');
+            if (stored) {
+                try {
+                    memoryCategories = JSON.parse(stored);
+                    return;
+                } catch (e) {}
+            }
+            // Padrões do cardápio
+            memoryCategories = [
+                { id: 'espetinhos', name: 'Espetinhos', icon: '🍢' },
+                { id: 'jantinhas', name: 'Jantinhas & Porções', icon: '🍛' },
+                { id: 'bebidas', name: 'Bebidas', icon: '🥤' },
+                { id: 'sobremesas', name: 'Sobremesas', icon: '🍰' }
+            ];
+            localStorage.setItem('delivery_categories', JSON.stringify(memoryCategories));
+        }
+
+        function renderCategoriesUI() {
+            // Dropdown do formulário
+            selectCategory.innerHTML = '<option value="">Selecione uma categoria...</option>';
+            memoryCategories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat.id || cat.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+                opt.textContent = `${cat.icon ? cat.icon + ' ' : ''}${cat.name}`;
+                selectCategory.appendChild(opt);
+            });
+
+            // Chips na seção B
+            categoriesChipsContainer.innerHTML = '';
+            if (memoryCategories.length === 0) {
+                categoriesChipsContainer.innerHTML = '<span class="text-xs text-gray-400">Nenhuma categoria cadastrada ainda.</span>';
+                return;
+            }
+
+            memoryCategories.forEach(cat => {
+                const chip = document.createElement('div');
+                chip.className = 'inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 hover:bg-orange-50 text-gray-700 hover:text-orange-800 rounded-xl text-xs font-semibold border border-gray-200 transition';
+                chip.innerHTML = `
+                    <span>${cat.icon || '📁'} ${cat.name}</span>
+                    <button type="button" onclick="deleteCategory('${cat.id}')" class="text-gray-400 hover:text-red-600 transition ml-1" title="Excluir categoria">✕</button>
+                `;
+                categoriesChipsContainer.appendChild(chip);
+            });
+        }
+
+        document.getElementById('category-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('category-name');
+            const name = input.value.trim();
+            if (!name) return;
+
+            const slug = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+            const newCat = { id: slug, name: name, icon: '🍢' };
+
+            if (isConfigured && supabase) {
+                try {
+                    const { error } = await supabase.from('categories').insert([{ id: slug, name }]);
+                    if (error) {
+                        alert("Erro ao salvar categoria no Supabase: " + error.message);
+                        return;
+                    }
+                } catch (err) {
+                    alert("Erro de conexão: " + err.message);
+                    return;
+                }
+            }
+
+            // Atualiza em memória/local
+            memoryCategories.push(newCat);
+            localStorage.setItem('delivery_categories', JSON.stringify(memoryCategories));
+            input.value = '';
+            renderCategoriesUI();
+            showToast(`Categoria "${name}" cadastrada com sucesso!`);
+        });
+
+        window.deleteCategory = async function(id) {
+            if (!confirm("Deseja realmente remover esta categoria?")) return;
+
+            if (isConfigured && supabase) {
+                try {
+                    await supabase.from('categories').delete().eq('id', id);
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+
+            memoryCategories = memoryCategories.filter(c => c.id !== id);
+            localStorage.setItem('delivery_categories', JSON.stringify(memoryCategories));
+            renderCategoriesUI();
+            showToast("Categoria removida.");
+        };
+
+        // --- GERENCIAMENTO DE PRODUTOS ---
+        async function loadProducts() {
+            if (isConfigured && supabase) {
+                try {
+                    const { data, error } = await supabase
+                        .from('products')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (!error && data) {
+                        memoryProducts = data;
+                        renderProductsTable();
+                        return;
+                    }
+                } catch (err) {
+                    console.warn("Erro ao buscar produtos no Supabase:", err);
+                }
+            }
+
+            // Fallback Local
+            const stored = localStorage.getItem('delivery_products');
+            if (stored) {
+                try {
+                    memoryProducts = JSON.parse(stored);
+                } catch (e) {
+                    memoryProducts = [];
+                }
+            } else {
+                // Tenta carregar os produtos padrão do products.json do cardápio
+                try {
+                    const res = await fetch('./data/products.json');
+                    if (res.ok) {
+                        const json = await res.json();
+                        if (json && json.products) {
+                            memoryProducts = json.products;
+                            localStorage.setItem('delivery_products', JSON.stringify(memoryProducts));
+                        }
+                    }
+                } catch (err) {}
+            }
+
+            renderProductsTable();
+        }
+
+        function renderProductsTable() {
+            productCountBadge.textContent = `${memoryProducts.length} ${memoryProducts.length === 1 ? 'item' : 'itens'}`;
+            productsTableBody.innerHTML = '';
+
+            if (memoryProducts.length === 0) {
+                productsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-gray-400">
+                            Nenhum produto cadastrado no momento. Preencha o formulário acima para adicionar o primeiro item!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            memoryProducts.forEach(prod => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50/80 transition";
+                
+                const imgSrc = prod.image_url || prod.image || 'https://placehold.co/80x80?text=Sem+Foto';
+                const formattedPrice = Number(prod.price || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                
+                tr.innerHTML = `
+                    <td class="p-3">
+                        <img src="${imgSrc}" alt="${prod.name}" class="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm">
+                    </td>
+                    <td class="p-3">
+                        <span class="font-bold text-gray-900 block">${prod.name}</span>
+                        <span class="text-xs text-gray-400 truncate max-w-xs block">${prod.description || ''}</span>
+                    </td>
+                    <td class="p-3">
+                        <span class="px-2.5 py-1 bg-gray-100 text-gray-700 rounded-lg text-xs font-semibold capitalize">${prod.category || 'Geral'}</span>
+                    </td>
+                    <td class="p-3 font-semibold text-gray-900">${formattedPrice}</td>
+                    <td class="p-3 text-right">
+                        <button type="button" onclick="deleteProduct('${prod.id}')" class="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition" title="Excluir produto">
+                            🗑️
+                        </button>
+                    </td>
+                `;
+                productsTableBody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-save-product');
+            const name = document.getElementById('prod-name').value.trim();
+            const category = document.getElementById('prod-category').value;
+            const price = parseFloat(document.getElementById('prod-price').value);
+            const description = document.getElementById('prod-description').value.trim();
+            const fileInput = document.getElementById('prod-file');
+            const file = fileInput.files[0];
+
+            if (!name || !category || isNaN(price) || !file) {
+                alert("Por favor, preencha todos os campos obrigatórios e anexe uma foto.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<span>Enviando...</span>`;
+
+            try {
+                let imageUrl = "";
+
+                // Upload para Supabase Storage se configurado
+                if (isConfigured && supabase) {
+                    try {
+                        const fileExt = file.name.split('.').pop();
+                        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                        const filePath = `products/${fileName}`;
+
+                        const { error: uploadError } = await supabase.storage
+                            .from('cardapio')
+                            .upload(filePath, file);
+
+                        if (!uploadError) {
+                            const { data: { publicUrl } } = supabase.storage
+                                .from('cardapio')
+                                .getPublicUrl(filePath);
+                            imageUrl = publicUrl;
+                        } else {
+                            console.warn("Storage upload falhou, usando fallback em base64:", uploadError.message);
+                            imageUrl = await fileToBase64(file);
+                        }
+                    } catch (uploadErr) {
+                        imageUrl = await fileToBase64(file);
+                    }
+                } else {
+                    imageUrl = await fileToBase64(file);
+                }
+
+                const newProduct = {
+                    id: Date.now().toString(),
+                    name,
+                    category,
+                    price,
+                    description,
+                    image: imageUrl,
+                    image_url: imageUrl,
+                    created_at: new Date().toISOString()
+                };
+
+                // Salva no Supabase se ativo
+                if (isConfigured && supabase) {
+                    const { error } = await supabase.from('products').insert([{
+                        name: newProduct.name,
+                        category: newProduct.category,
+                        price: newProduct.price,
+                        description: newProduct.description,
+                        image_url: imageUrl
+                    }]);
+
+                    if (error) {
+                        console.warn("Falha ao salvar produto no Supabase:", error.message);
+                    }
+                }
+
+                // Salva no cache local
+                memoryProducts.unshift(newProduct);
+                localStorage.setItem('delivery_products', JSON.stringify(memoryProducts));
+
+                // Limpa formulário
+                document.getElementById('product-form').reset();
+                renderProductsTable();
+                showToast(`"${name}" adicionado ao cardápio com sucesso!`);
+
+            } catch (err) {
+                alert("Erro ao salvar produto: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>🚀 Salvar Produto no Cardápio</span>`;
+            }
+        });
+
+        window.deleteProduct = async function(id) {
+            if (!confirm("Deseja realmente remover este produto do cardápio?")) return;
+
+            if (isConfigured && supabase) {
+                try {
+                    await supabase.from('products').delete().eq('id', id);
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+
+            memoryProducts = memoryProducts.filter(p => String(p.id) !== String(id));
+            localStorage.setItem('delivery_products', JSON.stringify(memoryProducts));
+            renderProductsTable();
+            showToast("Produto removido com sucesso.");
+        };
+
+        // --- LOGO DO ESTABELECIMENTO ---
+        function loadLogo() {
+            const savedLogo = localStorage.getItem('delivery_store_logo');
+            if (savedLogo) {
+                logoPreview.src = savedLogo;
+                document.getElementById('logo-status-tag').textContent = "Personalizado";
+                document.getElementById('logo-status-tag').className = "text-xs px-2.5 py-1 rounded-full bg-green-100 text-green-700";
+            }
+        }
+
+        logoFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const base64 = await fileToBase64(file);
+            logoPreview.src = base64;
+            localStorage.setItem('delivery_store_logo', base64);
+            document.getElementById('logo-status-tag').textContent = "Atualizado!";
+            document.getElementById('logo-status-tag').className = "text-xs px-2.5 py-1 rounded-full bg-green-100 text-green-700";
+            showToast("Logo atualizado com sucesso!");
+        });
+
+        // Helper: Converte arquivo para Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // --- MODAL DE CONFIGURAÇÃO DO SUPABASE ---
+        const btnOpenModal = document.getElementById('btn-open-config-modal');
+        const btnOpenSidebar = document.getElementById('btn-open-config-sidebar');
+        const btnCloseModal = document.getElementById('btn-close-config-modal');
+        const btnConfigFromBanner = document.getElementById('btn-config-from-banner');
+        const configForm = document.getElementById('config-form');
+        const cfgUrlInput = document.getElementById('cfg-supabase-url');
+        const cfgKeyInput = document.getElementById('cfg-supabase-key');
+        const btnResetConfig = document.getElementById('btn-reset-config');
+
+        function openModal() {
+            cfgUrlInput.value = activeSupabaseUrl || '';
+            cfgKeyInput.value = activeSupabaseKey || '';
+            configModal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            configModal.classList.add('hidden');
+        }
+
+        if (btnOpenModal) btnOpenModal.addEventListener('click', openModal);
+        if (btnOpenSidebar) btnOpenSidebar.addEventListener('click', openModal);
+        if (btnConfigFromBanner) btnConfigFromBanner.addEventListener('click', openModal);
+        if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+
+        configForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newUrl = cfgUrlInput.value.trim();
+            const newKey = cfgKeyInput.value.trim();
+
+            if (newUrl && newKey) {
+                localStorage.setItem('delivery_sb_url', newUrl);
+                localStorage.setItem('delivery_sb_key', newKey);
+                activeSupabaseUrl = newUrl;
+                activeSupabaseKey = newKey;
+                initSupabaseClient();
+                showToast("Credenciais salvas com sucesso!");
+                closeModal();
+            }
+        });
+
+        btnResetConfig.addEventListener('click', () => {
+            if (confirm("Deseja apagar as credenciais salvas no navegador?")) {
+                localStorage.removeItem('delivery_sb_url');
+                localStorage.removeItem('delivery_sb_key');
+                activeSupabaseUrl = "";
+                activeSupabaseKey = "";
+                supabase = null;
+                isConfigured = false;
+                updateSupabaseStatusUI(false);
+                closeModal();
+                showToast("Chaves removidas. Ativado modo demonstração.");
+            }
+        });
+
+        // --- INICIALIZAÇÃO GERAL ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initSupabaseClient();
+            checkUserSession();
+        });
+    </script>
+</body>
+</html>
